@@ -7,13 +7,13 @@
   <link rel="stylesheet" href="videos.css">
   <style>
     body {
-      background-color: #fa94fb;
+      background-color: #b7cafa;
       display: flex;
       margin:0;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin-bottom: 30%;
+      margin-bottom: 57%;
     }
 
     video {
@@ -21,17 +21,66 @@
       height: auto;
       position: absolute;
       transform: translate(-50%, -50%);
+      cursor:url("cursor/pointyfingerbig.png"), auto;
     }
 
     #video1 {
       top: 45%;
-      left: 36%;
+      left: 39%;
     }
 
     #video2 {
-      top: 120%;
-      left: 64%;
+      top: 165%;
+      left: 62%;
     }
+
+
+
+.star {
+
+position: absolute;
+top: 45.1%;
+left: 12.6%;
+width:25%;
+height:auto;
+transform: translate(-50%, -50%);
+-ms-transform: translate(-50%, -50%)
+}    
+
+
+
+
+.flowergif {
+
+position: absolute;
+width:28%; 
+margin-left:65%; 
+margin-top:43%
+}      
+
+
+
+
+
+
+.sheep {
+
+position: absolute;
+top: 115.1%;
+left: 12.6%;
+width:17%;
+opacity: 80%;
+height:auto;
+transform: rotate(-2deg);
+cursor: url('cursor/pointyfingerbig.png'), auto !important;
+
+}   
+
+
+
+
+
+
 
     /* Custom cursor on video control buttons */
     video::-webkit-media-controls-play-button,
@@ -45,14 +94,67 @@
     video::-webkit-media-controls-seek-forward-button,
     video::-webkit-media-controls-fullscreen-button,
     video::-webkit-media-controls-overflow-button {
-      cursor: url('cursor/pointyfinger.png'), auto !important;
+      cursor: url('cursor/pointyfingerbig.png'), auto !important;
     }
   </style>
 </head>
 <body>
 
+
+  <script src="main.js"></script>
+
 <video id="video1" controls loop> <source src="videos/notsofurrycropped.mp4" type="video/mp4"></video>
 <video id="video2" controls loop> <source src="videos/bunny.mp4" type="video/mp4"></video>
+<img class="star"; src="doodles/star.png">
+<img class="sheep"; src="SheepSticker/Sheep.png" id="draggableImage" draggable="true">
+<img class="flowergif" src="FlowerGif/flower.gif"style="width:28%; margin-left:58%; margin-top:40%">
+
+
+<script>
+// Make the DIV element draggable:
+dragElement(document.getElementById("draggableImage"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+  </script>
 
 </body>
 </html>
